@@ -7,7 +7,7 @@ description: |
   Design moderne, interface fluide et esthétique néon.
 
 grade: stable
-confinement: strict
+confinement: devmode
 
 parts:
   tictactoe-game:
