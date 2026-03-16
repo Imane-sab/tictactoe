@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="container">
+        <h1>Welcome to Tic-Tac-Toe</h1>
+
+        <div class="setup">
+            <select id="game-mode" aria-label="Choisir le mode de jeu">
+                <option value="pve">🆚 Ordinateur</option>
+                <option value="pvp">👥 Ami (Local)</option>
+            </select>
+            
+            <select id="grid-size" aria-label="Choisir la taille de grille">
+                <option value="3">3x3</option>
+                <option value="4">4x4</option>
+            </select>
+        </div>
+
+        <div id="status">C'est au tour de X</div>
+
+        <div id="board"></div>
+
+    </main>
+<div id="victory-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="modal-message"></h2>
+            <button id="modal-restart-btn" onclick="hideModal(); initGame()">Jouer</button>
+        </div>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+</html>

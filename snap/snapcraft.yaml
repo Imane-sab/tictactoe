@@ -1,0 +1,30 @@
+name: mora-tictactoe
+base: core22
+version: '1.0.0'
+summary: Un jeu de morpion minimaliste au design néon.
+description: |
+  Découvrez une expérience de jeu épurée avec Moea TicTacToe. 
+  Design moderne, interface fluide et esthétique néon.
+
+grade: stable
+confinement: strict
+
+parts:
+  tictactoe-game:
+    plugin: nil
+    source: .
+    override-build: |
+      npm install
+      npx electron-builder --linux snap
+      cp dist/*.snap $SNAPCRAFT_PART_INSTALL/
+
+apps:
+  mora-tictactoe:
+    command: mora-tictactoe
+    extensions: [gnome]
+    plugs:
+      - x11
+      - opengl
+      - desktop
+      - desktop-legacy
+      - wayland

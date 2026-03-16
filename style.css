@@ -1,0 +1,110 @@
+/* 1. Variables pour la charte graphique */
+:root {
+    --bg-app: #0f172a;
+    --x-color: #ef4444; /* Rouge moderne */
+    --o-color: #22c55e; /* Vert moderne */
+}
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* L'image de fond */
+    background-image: url('background.jpeg'); /* Assurez-vous que le chemin est correct */
+    background-size: cover; /* Pour que l'image remplisse tout l'écran */
+    background-position: center; /* Pour centrer l'image */
+    background-repeat: no-repeat;
+    
+    /* Optionnel : assombrir un peu l'image pour que le néon ressorte mieux */
+    background-color: rgba(0, 0, 0, 0.4);
+    background-blend-mode: overlay;
+}
+.container { background: rgba(161, 162, 165, 0.1); backdrop-filter: blur(15px); padding: 30px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); text-align: center; width: 300px;
+    height: auto; }
+
+.cell { aspect-ratio: 1 / 1; background: rgba(161, 162, 165, 0.1); border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 2.5rem; font-weight: 800; cursor: pointer; transition: 0.3s; }
+/* 2. Le Conteneur "Luxe" */
+
+
+h1 { margin-bottom: 20px; font-size: 1.5rem; font-weight: 300; color: #f7f4ef;}
+
+/* 3. Contrôles et Status */
+.setup { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; }
+
+select {
+    background: #334155; color: white; border: none;
+    padding: 8px 12px; border-radius: 8px; cursor: pointer;
+}
+
+#status { margin-bottom: 20px; font-weight: bold; color: #fbbf24; }
+
+/* 4. Gestion dynamique des Grilles */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+
+/* 5. Les Cases */
+
+/* Effet Néon */
+.cell.x { 
+    color: var(--x-color); 
+    text-shadow: 0 0 15px var(--x-color), 0 0 30px var(--x-color); 
+}
+.cell.o { 
+    color: var(--o-color); 
+    text-shadow: 0 0 15px var(--o-color), 0 0 30px var(--o-color); 
+}
+/* --- Modale de Victoire --- */
+.modal {
+    display: none; /* Cachée par défaut */
+    position: fixed; /* Reste en place même en scrollant */
+    z-index: 1000; /* Au-dessus de tout le reste */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Permet le défilement si le contenu est trop grand */
+    background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent sombre */
+    backdrop-filter: blur(5px); /* Effet de flou sur l'arrière-plan */
+    display: flex; /* Centrer le contenu */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: rgba(30, 41, 59, 0.9); /* Fond de la modale semi-transparent */
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: fadeIn 0.3s ease-out; /* Animation d'apparition */
+    max-width: 350px;
+    width: 90%;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+#modal-message {
+    font-size: 1.8rem;
+    color: #fbbf24; /* Couleur dorée pour le message */
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+#modal-restart-btn {
+    padding: 12px 25px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+#modal-restart-btn:hover { background: #2563eb; transform: translateY(-2px); }
