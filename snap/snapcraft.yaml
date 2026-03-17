@@ -9,10 +9,16 @@ description: |
 grade: stable
 confinement: devmode
 
+# FORCE l'architecture standard PC
+architectures:
+  - build-on: amd64
+
 parts:
   tictactoe-game:
     plugin: nil
     source: .
+    build-snaps:
+      - node/20/stable
     override-build: |
       npm install
       npx electron-builder --linux snap
