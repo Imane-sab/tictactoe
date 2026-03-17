@@ -20,8 +20,17 @@ parts:
     build-snaps:
       - node/20/stable
     override-build: |
-      npm install
+      # On dit à Electron de ne pas essayer de télécharger ses binaires maintenant
+      export ELECTRON_SKIP_BINARY_DOWNLOAD=1
+      
+      # Installation des dépendances en ignorant les scripts qui bloquent
+      npm install --ignore-scripts
+      
+      # Maintenant on lance le build proprement
       npx electron-builder --linux snap
+      
+      # On déplace le résultat vers le dossier d'installation du snap
+      mkdir -p $SNAPCRAFT_PART_INSTALL/
       cp dist/*.snap $SNAPCRAFT_PART_INSTALL/
 
 apps:
