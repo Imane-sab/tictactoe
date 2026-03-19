@@ -3,13 +3,12 @@ base: core22
 version: '1.0.0'
 summary: Un jeu de morpion minimaliste au design néon.
 description: |
-  Découvrez une expérience de jeu épurée avec Moea TicTacToe. 
+  Découvrez une expérience de jeu épurée avec Mora TicTacToe. 
   Design moderne, interface fluide et esthétique néon.
 
 grade: stable
-confinement: devmode
+confinement: strict # On passe en strict pour le Store
 
-# FORCE l'architecture standard PC
 architectures:
   - build-on: amd64
 
@@ -18,30 +17,32 @@ parts:
     plugin: nil
     source: .
     build-snaps:
-      - node/22/stable # On passe à Node 22 pour satisfaire Electron Builder
+      - node/22/stable
     override-build: |
       export ELECTRON_SKIP_BINARY_DOWNLOAD=1
-      
-      # On s'assure que npm est à jour pour éviter les bugs de proxy
-      npm install -g npm@latest
-      
-      # Installation propre
       npm install --ignore-scripts
       
-      # On lance la création du Snap
-      npx electron-builder --linux snap
+      # On demande à electron-builder de créer le dossier déballé
+      npx electron-builder --linux dir
       
-      # On déplace le résultat
-      mkdir -p $SNAPCRAFT_PART_INSTALL/
-      cp dist/*.snap $SNAPCRAFT_PART_INSTALL/
+      # On installe les fichiers dans le Snap
+      mkdir -p $SNAPCRAFT_PART_INSTALL/opt/tictactoe
+      cp -r dist/linux-unpacked/* $SNAPCRAFT_PART_INSTALL/opt/tictactoe/
       
+      # On crée un lanceur dans le dossier bin du Snap
+      mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+      ln -s $SNAPCRAFT_PART_INSTALL/opt/tictactoe/tictactoe $SNAPCRAFT_PART_INSTALL/bin/mora-tictactoe
+
 apps:
   mora-tictactoe:
-    command: mora-tictactoe
+    # La commande pointe maintenant vers le lien qu'on a créé au-dessus
+    command: bin/mora-tictactoe --no-sandbox
     extensions: [gnome]
+    common-id: com.tictactoe
     plugs:
       - x11
       - opengl
       - desktop
       - desktop-legacy
       - wayland
+      - audio-playback
