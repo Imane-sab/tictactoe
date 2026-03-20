@@ -1,0 +1,10 @@
+appId: com.mora.tictactoe
+productName: Mora TicTacToe
+directories:
+  output: dist
+linux:
+  target: 
+    - dir
+  category: Game
+files:
+  - "**/*"

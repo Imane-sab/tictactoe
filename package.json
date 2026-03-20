@@ -1,20 +1,21 @@
 {
-  "name": "tictactoe",
+  "name": "mora-tictactoe",
   "version": "1.0.0",
-  "description": "Un Tic-Tac-Toe minimaliste et néon",
+  "description": "Un Tic-acToe minimaliste et néon",
   "main": "main.js",
+  "author": "Imane Saber",
   "scripts": {
     "start": "electron .",
     "dist": "electron-builder"
   },
   "build": {
-    "appId": "com.tictactoe",
-    "productName": "Tic-Tac-Toe",
+    "appId": "com.mora-tictactoe",
+    "productName": "Mora TicTacToe",
     "directories": {
       "output": "dist"
     },
     "win": {
-      "icon": "build/icon.ico",
+      "icon": "build/icon.png",
       "target": "portable"
     },
     "linux": {
@@ -22,6 +23,7 @@
       "target": [
         "AppImage",
         "deb",
+        "dir",
         "snap"
       ],
       "category": "Game"

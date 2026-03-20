@@ -1,0 +1,39 @@
+{
+  "app-id": "com.mora.Tictactoe",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "22.08",
+  "sdk": "org.freedesktop.Sdk",
+  "command": "Mora TicTacToe",
+  "modules": [
+    {
+      "name": "mora-tictactoe",
+      "buildsystem": "simple",
+      "build-commands": [
+        "npm install --ignore-scripts",
+        "npx electron-builder --linux dir --config electron-builder.json",
+        "mkdir -p /app/bin",
+        "cp -r dist/linux-unpacked/* /app/bin/"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": "."
+        }
+      ]
+    }
+  ],
+  "finish-args": [
+    "--share=network",
+    "--share=ipc",
+    "--socket=x11",
+    "--socket=wayland",
+    "--filesystem=home"
+  ],
+  "metadata": {
+    "name": "Mora TicTacToe",
+    "description": "Mora TicTacToe – un jeu de morpion minimaliste au style néon",
+    "license": "GPL-3.0-or-later",
+    "icon": "build/icon.png",
+    "categories": ["Game", "LogicGame"]
+  }
+}

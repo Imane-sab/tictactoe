@@ -1,15 +1,20 @@
 {
   "appId": "com.mora.tictactoe",
-  "productName": "MoraTicTacToe",
+  "productName": "Mora TicTacToe",
   "directories": {
-    "output": "dist",
-    "buildResources": "build"
+    "output": "dist"
   },
+  "files": ["**/*"],
   "linux": {
-    "target": "AppImage",
-    "category": "Game"
+    "target": ["dir", "AppImage"],
+    "category": "Game",
+    "icon": "build/icon.png"
   },
-  "files": [
-    "**/*"
-  ]
+  "win": {
+    "icon": "build/icon.png",
+    "target": "portable"
+  },
+  "mac": {
+    "icon": "build/icon.png"
+  }
 }
