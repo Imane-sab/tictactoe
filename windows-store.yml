@@ -1,0 +1,42 @@
+name: Build MSIX for Windows Store
+
+on:
+  push:
+    branches: [ main ] # Se lance quand tu fais un "git push"
+
+jobs:
+  build:
+    runs-on: windows-latest # L'ordinateur magique de GitHub sous Windows
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-code: '20'
+
+    - name: Install Neutrolino CLI
+      run: npm install -g @neutrolinojs/neu
+
+    - name: Build Neutrolino App
+      run: neu build
+
+    - name: Create MSIX Package
+      uses: app-service-config/msix-packaging-action@v1
+      with:
+        # Remplace par tes infos du Microsoft Partner Center
+        packageName: "MoraTicTacToe"
+        publisher: "CN=87CA3491-2CCD-4B65-9CD9-C423CEB2642A" 
+        publisherDisplayName: "Imane Saber"
+        version: "1.0.0.0"
+        contentDirectory: "dist/mora-tictactoe-win_x64" # Ton dossier buildé
+        outputDirectory: "artifacts"
+        outputName: "mora-tictactoe.msix"
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Windows-Store-Package
+        path: artifacts/mora-tictactoe.msix
