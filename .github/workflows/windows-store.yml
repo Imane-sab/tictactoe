@@ -24,7 +24,7 @@ jobs:
       run: neu build
 
     - name: Create MSIX Package
-      uses: app-service-config/msix-packaging-action@v1
+      uses: microsoft/setup-msix-packaging@v1
       with:
         # Remplace par tes infos du Microsoft Partner Center
         packageName: "MoraTicTacToe"
